@@ -1,8 +1,3 @@
-module Gom
-  module Core
-  end
-end
-
 class Gom::Core::Primitive
 
   Types = {
