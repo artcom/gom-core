@@ -1,8 +1,10 @@
-= gom-core
+# GOM Core 
 
-Description goes here.
+Base functionallity to be shared between GOM server and client
+implementations. Currently includes primitive type handling and logger setup
+with decent output format.
 
-== Note on Patches/Pull Requests
+## Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -13,6 +15,6 @@ Description goes here.
    bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+## Copyright
 
-Copyright (c) 2009 dirk luesebrink. See LICENSE for details.
+Copyright (c) 2009/13 art+com/dirk luesebrink. See LICENSE for details.
