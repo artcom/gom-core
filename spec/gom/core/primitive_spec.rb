@@ -7,6 +7,13 @@ describe Gom::Core::Primitive do
     # TODO: test & implementation
   end
 
+  it 'implements these known types' do
+    expect(types = Primitive::Types).to be_kind_of(Hash)
+    expect(types.values.uniq.sort).to eq([
+      :boolean, :date, :datetime, :decimal, :float, :integer, :symbol, :uri
+    ])
+  end
+
   it "should encode URIs" do
     uri = URI.parse "http://www.artcom.de/"
     Primitive.encode(uri).should == [uri.to_s, :uri]
