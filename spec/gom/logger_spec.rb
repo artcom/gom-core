@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'tempfile'
 
 describe Gom::Logger do
   it "should find the class" do
