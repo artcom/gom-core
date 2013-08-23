@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.authors     = ["art+com/dirk luesebrink"]
   s.email       = ["dirk.luesebrink@artcom.de"]
   s.homepage    = "http://github.com/artcom/gom-core"
+  s.license     = "MIT"
   s.summary     = %q{basic GOM functionallity}
   s.description = %q{
     this gem includes stuff which is of use for the server as well as for gom
