@@ -10,8 +10,16 @@ describe Gom::Core::Primitive do
   it 'implements these known types' do
     expect(types = Primitive::Types).to be_kind_of(Hash)
     expect(types.values.uniq.sort).to eq([
-      :boolean, :date, :datetime, :decimal, :float, :integer, :symbol, :uri
+      :boolean, :date, :datetime, :float, :integer, :symbol, :uri
     ])
+  end
+
+  it "encodes booleans" do
+    expect(Primitive.encode(true)).to eq(['true', :boolean])
+    expect(Primitive.decode(*Primitive.encode(true))).to be(true)
+
+    expect(Primitive.encode(false)).to eq(['false', :boolean])
+    expect(Primitive.decode(*Primitive.encode(false))).to be(false)
   end
 
   it "should encode URIs" do

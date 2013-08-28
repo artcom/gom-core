@@ -1,19 +1,19 @@
 class Gom::Core::Primitive
 
   Types = {
-      "Symbol"       => :symbol,
-      "Fixnum"       => :integer,
-      "Bignum"       => :integer,
-      "BigDecimal"   => :decimal,
-      "Float"        => :float,
-      "Date"         => :date,
-      "DateTime"     => :datetime,
-      "Time"         => :datetime,
-      "TrueClass"    => :boolean,
-      "FalseClass"   => :boolean,
-      "URI::HTTP"    => :uri,
-      "URI::HTTPS"   => :uri,
-      "URI::Generic" => :uri,
+    Symbol	  => :symbol,
+    Fixnum	  => :integer,
+    Bignum	  => :integer,
+    #BigDecimal	  => :decimal,
+    Float	  => :float,
+    Date	  => :date,
+    DateTime	  => :datetime,
+    Time	  => :datetime,
+    TrueClass	  => :boolean,
+    FalseClass	  => :boolean,
+    URI::HTTP     => :uri,
+    URI::HTTPS    => :uri,
+    URI::Generic  => :uri,
   }
 
   Parsers = {
@@ -22,6 +22,7 @@ class Gom::Core::Primitive
     :float    => Proc.new { |txt| txt.to_f },
     :integer  => Proc.new { |txt| txt.to_i },
     :uri      => Proc.new { |s| URI.parse(s) },
+    :boolean  => Proc.new { |s| (s == 'true' ? true : false) },
   }
 
   Formatters = Hash.new(Proc.new{|o|o.to_s}).update(
@@ -38,12 +39,12 @@ class Gom::Core::Primitive
   # text, type -> value
   def self.decode txt, type = :string
     parser = type && Parsers[type.to_sym]
-    parser && parser.call(txt) || txt
+    parser ? parser.call(txt) : txt
   end
 
   # value -> text, type
   def self.encode value
-    type = Types[value.class.name] || :string
+    type = Types[value.class] || :string
     formatter = Formatters[type]
     [ formatter.call(value), type]
   end
