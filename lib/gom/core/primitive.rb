@@ -1,6 +1,6 @@
 class Gom::Core::Primitive
 
-  Types = {
+  TypeMap = {
     Symbol	  => :symbol,
     Fixnum	  => :integer,
     Bignum	  => :integer,
@@ -15,6 +15,8 @@ class Gom::Core::Primitive
     URI::HTTPS    => :uri,
     URI::Generic  => :uri,
   }
+
+  TypeCodes = TypeMap.values.uniq.sort
 
   Parsers = {
     :date     => Proc.new { |date| ::Date.parse(date) },
@@ -44,7 +46,7 @@ class Gom::Core::Primitive
 
   # value -> text, type
   def self.encode value
-    type = Types[value.class] || :string
+    type = TypeMap[value.class] || :string
     formatter = Formatters[type]
     [ formatter.call(value), type]
   end

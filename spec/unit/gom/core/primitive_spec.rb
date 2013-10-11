@@ -8,10 +8,15 @@ describe Gom::Core::Primitive do
   end
 
   it 'implements these known types' do
-    expect(types = Primitive::Types).to be_kind_of(Hash)
-    expect(types.values.uniq.sort).to eq([
+    expect(Primitive::TypeMap).to be_kind_of(Hash)
+  end
+
+  it 'lists all unique types in the TypeCode constant' do
+    expect(Primitive::TypeCodes).to eq([
       :boolean, :date, :datetime, :float, :integer, :symbol, :uri
     ])
+
+    expect(Primitive::TypeCodes).to eq(Primitive::TypeMap.values.uniq.sort)
   end
 
   it "encodes booleans" do
