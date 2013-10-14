@@ -13,7 +13,7 @@ describe Gom::Core::Primitive do
 
   it 'lists all unique types in the TypeCode constant' do
     expect(Primitive::TypeCodes).to eq([
-      :boolean, :date, :datetime, :float, :integer, :symbol, :uri
+      :boolean, :date, :datetime, :float, :integer, :symbol, :txt, :uri
     ])
 
     expect(Primitive::TypeCodes).to eq(Primitive::TypeMap.values.uniq.sort)
@@ -66,6 +66,6 @@ describe Gom::Core::Primitive do
   it "should encode strings" do
     s = "random text string: #{rand}."
     s.should == Primitive.decode(*Primitive.encode(s))
-    [s, :string].should == Primitive.encode(s)
+    [s, :txt].should == Primitive.encode(s)
   end
 end

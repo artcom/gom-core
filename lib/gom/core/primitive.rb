@@ -14,6 +14,7 @@ class Gom::Core::Primitive
     URI::HTTP     => :uri,
     URI::HTTPS    => :uri,
     URI::Generic  => :uri,
+    String        => :txt,
   }
 
   TypeCodes = TypeMap.values.uniq.sort
@@ -28,7 +29,7 @@ class Gom::Core::Primitive
   }
 
   Formatters = Hash.new(Proc.new{|o|o.to_s}).update(
-    :string   => Proc.new { |s| s.to_s },
+    :txt      => Proc.new { |s| s.to_s },
     :date     => Proc.new { |date| date.strftime('%Y-%m-%d') }, #.to_s(:db) },
     :datetime => Proc.new { |time|
       # back and forth, trying to 'normalize' the myriad of time formats
@@ -39,14 +40,14 @@ class Gom::Core::Primitive
   )
 
   # text, type -> value
-  def self.decode txt, type = :string
+  def self.decode txt, type = :txt
     parser = type && Parsers[type.to_sym]
     parser ? parser.call(txt) : txt
   end
 
   # value -> text, type
   def self.encode value
-    type = TypeMap[value.class] || :string
+    type = TypeMap[value.class] || :txt
     formatter = Formatters[type]
     [ formatter.call(value), type]
   end
